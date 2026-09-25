@@ -1,0 +1,19 @@
+name: Teste de Docker
+
+on: [push]
+
+jobs:
+  rodar-docker:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v4
+
+      - name: 1. Teste básico (Hello World)
+        run: docker run hello-world
+
+      - name: 2. Subir um servidor web NGINX e testar a resposta
+        run: |
+          docker run -d -p 8080:80 --name meu-web-server nginx
+          sleep 2
+          curl http://localhost:8080
